@@ -1,0 +1,28 @@
+Back-end source link:
+https://github.com/Taufique01/backend.git
+git@github.com:Taufique01/backend.git
+
+Android source link:
+https://github.com/Taufique01/food_order.git
+git@github.com:Taufique01/food_order.git
+
+here is rest-auth doccumentation: https://django-rest-auth.readthedocs.io/en/latest/configuration.html
+In settings.py change:
+##put this in basic login section to prevent user login without verification
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+##base url of your app:
+BASE_URL='https://backend-rafi.herokuapp.com'
+
+##put default avatar link here:
+DISPLAY_PIC_DEFAULT_URL='https://graph.facebook.com/2008681126092072/picture?type=large'
+
+##your hosing provider
+EMAIL_HOST = 'smtp.gmail.com'
+##put yours email
+EMAIL_HOST_USER = 'your email'
+##put your password
+EMAIL_HOST_PASSWORD = 'password'
+
+If you use gmail, Chage the settings in your google account by 'allowing unknown apps' and prevent capcha during login.
+
