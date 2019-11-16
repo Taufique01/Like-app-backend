@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'photoapp',
+    'google_social_auth',
     'oauth2_provider',
     'social_django',
     'social.apps.django_app.default',
     'rest_framework_social_oauth2',
+
 ]
 
 MIDDLEWARE = [
