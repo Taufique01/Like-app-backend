@@ -22,7 +22,7 @@ class TokenUtils():
       def create_id_token_response(self,token,application):
           try:
              GOOGLE_CLIENT_ID='407408718192.apps.googleusercontent.com'
-             idinfo = id_token.verify_oauth2_token(token, requests.Request(), GOOGLE_CLIENT_ID)
+             idinfo = id_token.verify_oauth2_token(token, requests.Request(), settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY)
              if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
                 raise ValueError('Wrong issuer.')
              #valid id token 
