@@ -13,8 +13,10 @@ class ContestView(APIView):
       def get(self, request, *args, **kwargs):
           contests=Contest.objects.all()
           contest_serializer=ContestSerializer(contests,many=True)
-          contest_json = JSONRenderer().render(contest_serializer.data)
-          return Response(data=contest_json,status=status.HTTP_200_OK)
+          print(contest_serializer.data)
+          #contest_json = JSONRenderer().render(contest_serializer.data)
+
+          return Response(data=contest_serializer.data,status=status.HTTP_200_OK)
 
 
 
