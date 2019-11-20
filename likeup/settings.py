@@ -155,7 +155,7 @@ AUTHENTICATION_BACKENDS = (
 
 
 # Google configuration
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '4924030661-16dbinetvj5r8jnltca5s8ja0cgrq59k.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='802506957592-tksb1d56ufgv5lp2o0b0a0onob1mcc0t.apps.googleusercontent.com' #'4924030661-16dbinetvj5r8jnltca5s8ja0cgrq59k.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'zgzQlrMrOSN4kBeKvBUpanZy'
 REST_FRAMEWORK = {
    
