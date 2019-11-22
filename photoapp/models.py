@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.conf import settings
@@ -18,7 +19,8 @@ class Contest(models.Model):
       end_date = models.DateTimeField(
             blank=True, null=True)
       start_date_str = models.CharField(max_length=500,default='no')
-      end_date_str = models.CharField(max_length=500,default='no')    
+      end_date_str = models.CharField(max_length=500,default='no') 
+      user = models.ManyToManyField(User, related_name = 'contest', through='PhotoUpload')   
       def __str__(self):
          return self.title
 
@@ -37,10 +39,10 @@ class PhotoUpload(models.Model):
    
     upload_date = models.DateTimeField(
             default=timezone.now)
-    image = models.ImageField(_("Image"), upload_to = 'images/%Y/%m/%d', blank=False, null=False)
+    image = models.ImageField(_("Image"), upload_to = 'images/%Y/%m/%d', blank=True, null=True)
 
     def __str__(self):
-      return user.get_full_name()+str(self.upload_date)
+      return self.user.get_full_name()+str(self.upload_date)
 
 class Like(models.Model):
     user = models.ForeignKey(
@@ -53,5 +55,25 @@ class Like(models.Model):
         related_name='photo_lke',
         null=False, blank=False, on_delete=models.CASCADE
     )
+
+
+
+
+
+
+class PhotoUpload_inline(admin.TabularInline):
+    model = PhotoUpload
+    extra = 1
+
+class UserAdmin(admin.ModelAdmin):
+    inlines = (PhotoUpload_inline,)
+class ContestAdmin(admin.ModelAdmin):
+    inlines = (PhotoUpload_inline,)
+
+
+
+
+
+
 
 
