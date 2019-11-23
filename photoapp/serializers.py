@@ -29,15 +29,17 @@ class MyContestSerializer(serializers.ModelSerializer):
         fields = ('id','image_url','title','start_date','end_date','likes')
 
     def get_image_url(self, contest):
-        photoup=contest.photo_upload
+        user = self.context.get('user')
+
+        photoup=contest.photo_upload.get(user=user)
         if not photoup.image:
            return None;
         return photoup.image.url
     
     def get_like_count(self, contest):
-
-        photoup=contest.photo_upload
-        return photoup.photo_lke.all().count()
+        user = self.context.get('user')
+        photoup=contest.photo_upload.get(user=user)
+        return photoup.photo_like.all().count()
 
     def get_start_date_str(self, contest):
         return str(contest.start_date)

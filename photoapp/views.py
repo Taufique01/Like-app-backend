@@ -35,7 +35,7 @@ class MyContestView(APIView):
              return Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
 
           contests=Contest.objects.filter(user=user,end_date__gt=timezone.now())
-          contest_serializer=MyContestSerializer(contests,many=True)
+          contest_serializer=MyContestSerializer(contests,many=True,context={'user': user})
           print(contest_serializer.data)
           #contest_json = JSONRenderer().render(contest_serializer.data)
 
