@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework.views import APIView
 from rest_framework import status
+from django.utils import timezone
 from photoapp.models import Like,Contest,PhotoUpload
 from google_social_auth.models import AccessToken
 from .serializers import ContestSerializer,MyContestSerializer
@@ -12,7 +13,7 @@ from .serializers import ContestSerializer,MyContestSerializer
 class ContestView(APIView):
 
       def get(self, request, *args, **kwargs):
-          contests=Contest.objects.all()
+          contests=Contest.objects.filter(end_date__gt=timezone.now())
           contest_serializer=ContestSerializer(contests,many=True)
           print(contest_serializer.data)
           #contest_json = JSONRenderer().render(contest_serializer.data)
@@ -32,8 +33,9 @@ class MyContestView(APIView):
 
           except AccessToken.DoesNotExist:
              return Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
-          contests=Contest.objects.filter(user=user)
-          contest_serializer=ContestSerializer(contests,many=True)
+
+          contests=Contest.objects.filter(user=user,end_date__gt=timezone.now())
+          contest_serializer=MyContestSerializer(contests,many=True)
           print(contest_serializer.data)
           #contest_json = JSONRenderer().render(contest_serializer.data)
 

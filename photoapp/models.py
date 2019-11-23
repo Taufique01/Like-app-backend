@@ -18,8 +18,7 @@ class Contest(models.Model):
             default=timezone.now)
       end_date = models.DateTimeField(
             blank=True, null=True)
-      start_date_str = models.CharField(max_length=500,default='no')
-      end_date_str = models.CharField(max_length=500,default='no') 
+      
       user = models.ManyToManyField(User, related_name = 'contest', through='PhotoUpload')   
       def __str__(self):
          return self.title
@@ -42,7 +41,7 @@ class PhotoUpload(models.Model):
     image = models.ImageField(_("Image"), upload_to = 'images/%Y/%m/%d', blank=True, null=True)
 
     def __str__(self):
-      return self.user.get_full_name()+str(self.upload_date)
+      return self.user.get_full_name()+' '+self.image.url
 
 class Like(models.Model):
     user = models.ForeignKey(
@@ -56,6 +55,8 @@ class Like(models.Model):
         null=False, blank=False, on_delete=models.CASCADE
     )
 
+    def __str__(self):
+      return self.user.get_full_name()+' '+self.photo.image.url
 
 
 
