@@ -5,5 +5,6 @@ urlpatterns = [
        # URLs that do not require a session or valid token
     url(r'^contests/$',  views.ContestView.as_view()),
     url(r'^mycontests/$',  views.MyContestView.as_view()),   
+    url(r'^image/upload/$', views.upload_pic, name='upload_pic'),
 ]
 

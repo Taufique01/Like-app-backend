@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from django import forms
 from photoapp.models import Like,Contest,PhotoUpload
 
 
@@ -46,5 +46,16 @@ class MyContestSerializer(serializers.ModelSerializer):
 
     def get_end_date_str(self, contest):
         return str(contest.end_date)
-   
+
+
+
+
+class ImageUploadForm(forms.Form):
+    """Image upload form."""
+    token= forms.CharField(required=True)
+    contest_id=forms.CharField(required=True)
+    image = forms.ImageField()
+
+
+
 

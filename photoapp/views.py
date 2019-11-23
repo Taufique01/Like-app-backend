@@ -7,7 +7,8 @@ from rest_framework import status
 from django.utils import timezone
 from photoapp.models import Like,Contest,PhotoUpload
 from google_social_auth.models import AccessToken
-from .serializers import ContestSerializer,MyContestSerializer
+from .serializers import ContestSerializer,MyContestSerializer,ImageUploadForm
+
 
 
 class ContestView(APIView):
@@ -42,6 +43,26 @@ class MyContestView(APIView):
           return Response(data=contest_serializer.data,status=status.HTTP_200_OK)
 
 
+
+@csrf_exempt
+def upload_pic(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            
+          
+            try:
+               access_token = AccessToken.objects.get(token=form.cleaned_data['token'])
+            except TokenModel.DoesNotExist:
+               Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+            user=access_token.user
+            contest_id=form.cleaned_data['contest_id']
+            image = form.cleaned_data['image']
+            photo_upload=PhotoUpload.objects.get(user=user,contest__id=contest_id)
+            photo_upload.image=image
+            photo_upload.save()
+            return JsonResponse({'img_url':photo_upload.image.url})
+    return HttpResponseForbidden('allowed only via POST')
 
 
           
