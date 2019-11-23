@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.http import HttpResponse
+
 from rest_framework import serializers
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
@@ -9,7 +12,6 @@ from django.utils import timezone
 from photoapp.models import Like,Contest,PhotoUpload
 from google_social_auth.models import AccessToken
 from .serializers import ContestSerializer,MyContestSerializer,ImageUploadForm
-
 
 
 class ContestView(APIView):
