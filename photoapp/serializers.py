@@ -39,7 +39,7 @@ class MyContestSerializer(serializers.ModelSerializer):
     def get_like_count(self, contest):
         user = self.context.get('user')
         photoup=contest.photo_upload.get(user=user)
-        return photoup.photo_like.all().count()
+        return photoup.photo_lke.all().count()
 
     def get_start_date_str(self, contest):
         return str(contest.start_date)
