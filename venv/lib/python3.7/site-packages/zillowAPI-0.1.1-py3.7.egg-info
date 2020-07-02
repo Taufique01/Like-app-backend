@@ -1,0 +1,15 @@
+Metadata-Version: 1.1
+Name: zillowAPI
+Version: 0.1.1
+Summary: a zillow.com API wrapper written in python
+Home-page: https://github.com/asclepiusaka/zillowAPI
+Author: Cong Du
+Author-email: asclepius1993@gmail.com
+License: UNKNOWN
+Download-URL: https://github.com/asclepiusaka/zillowAPI/archive/0.1.1.tar.gz
+Description: UNKNOWN
+Keywords: zillow,api,real estate
+Platform: UNKNOWN
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Intended Audience :: Developers

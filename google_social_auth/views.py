@@ -12,6 +12,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from .forms import RequestTokeForm
 from google_social_auth.models import AccessToken,Application
+from photoapp.models import  Profile
 from . import common
 from django.utils import timezone
 from datetime import timedelta
@@ -33,9 +34,10 @@ class TokenUtils():
                     email=idinfo['email'])
              if _created:
                  user.username=idinfo['sub']
-                 user.first_name=idinfo['name']
+                 user.first_name=idinfo['given_name']
                  user.last_name=idinfo['family_name']
                  user.save()
+                 Profile(user=user,avatar=idinfo['picture']).save()
                  access_token = AccessToken(
                     user=user,
                     expires=datetime.datetime.now() + datetime.timedelta(days=1),
@@ -44,6 +46,13 @@ class TokenUtils():
                     )
                  access_token.save()
              else:
+                  try:
+                     p=user.profile
+                     p.avatar=idinfo['picture']
+                     p.save()
+                  except Profile.DoesNotExist:
+                     Profile(user=user,avatar=idinfo['picture']).save()
+
                   try:
                     access_token=user.access_token
                     access_token.token=common.generate_token()
